@@ -1,0 +1,627 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Find the best deals and instant savings at Costco. Browse our curated selection of electronics, groceries, furniture, and more.">
+    <title>Best Costco Deals & Instant Savings | Deal Finder</title>
+    <style>
+        /* Reset and base styles */
+        :root {
+            --primary-color: #0073a8;
+            --secondary-color: #e31837;
+            --background-color: #f5f5f5;
+            --text-color: #333;
+            --border-color: #ddd;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--background-color);
+        }
+
+        /* Layout */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .deals-view .container {
+            display: grid;
+            grid-template-columns: 250px 1fr;
+            gap: 30px;
+        }
+
+        /* Header */
+        .main-header {
+            background-color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+
+        .navbar {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            color: var(--primary-color);
+            cursor: pointer;
+        }
+
+        /* Search Bar */
+        .search-bar {
+            display: flex;
+            gap: 10px;
+        }
+
+        #search-input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            width: 300px;
+        }
+
+        #search-button {
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Filters */
+        .filters {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            height: fit-content;
+        }
+
+        .category-list {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .category-btn {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            text-align: left;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--text-color);
+        }
+
+        .category-btn.active {
+            background-color: var(--primary-color);
+            color: white;
+            border-radius: 4px;
+        }
+
+        /* Deals Grid */
+        .deals-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .deal-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            transition: transform 0.2s;
+            cursor: pointer;
+        }
+
+        .deal-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .deal-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .deal-content {
+            padding: 15px;
+        }
+
+        .deal-title {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .savings-badge {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+
+        .expiry-date {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 15px;
+        }
+
+        .view-deal-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 4px;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Pagination */
+        .pagination {
+            margin-top: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .page-btn {
+            padding: 8px 16px;
+            background-color: white;
+            border: 1px solid var(--border-color);
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .page-numbers {
+            display: flex;
+            gap: 5px;
+        }
+
+        /* Detail View */
+        .detail-view {
+            display: none;
+        }
+
+        .detail-view.active {
+            display: block;
+        }
+
+        .deals-view.hidden {
+            display: none;
+        }
+
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .product-image {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .detail-img {
+            width: 100%;
+            height: auto;
+            object-fit: contain;
+        }
+
+        .product-info h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+        }
+
+        .product-features {
+            margin: 20px 0;
+        }
+
+        .product-features ul {
+            list-style: none;
+            margin: 10px 0;
+        }
+
+        .product-features li {
+            padding: 5px 0;
+        }
+
+        .store-info {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: var(--background-color);
+            border-radius: 8px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 12px 24px;
+            background-color: var(--secondary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        /* Ad Units */
+        .ad-unit {
+            margin: 20px 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+            border: 1px dashed #ccc;
+            text-align: center;
+        }
+
+        /* Social Share */
+        .social-share {
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            padding: 8px 16px;
+            margin-right: 10px;
+            background-color: #f0f0f0;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        /* Footer */
+        .main-footer {
+            margin-top: 50px;
+            padding: 20px;
+            background-color: white;
+            text-align: center;
+            box-shadow: 0 -2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* Back Button */
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 8px 16px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .deals-view .container {
+                grid-template-columns: 1fr;
+            }
+
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .search-bar {
+                width: 100%;
+            }
+
+            #search-input {
+                width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <nav class="navbar">
+            <div class="logo">
+                <h1 id="site-title">Costco Deal Finder</h1>
+            </div>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Search deals...">
+                <button id="search-button">Search</button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Deals List View -->
+    <div class="deals-view" id="deals-view">
+        <main class="container">
+            <aside class="filters">
+                <h2>Categories</h2>
+                <ul class="category-list">
+                    <li><button class="category-btn active" data-category="all">All Deals</button></li>
+                    <li><button class="category-btn" data-category="electronics">Electronics</button></li>
+                    <li><button class="category-btn" data-category="groceries">Groceries</button></li>
+                    <li><button class="category-btn" data-category="furniture">Furniture</button></li>
+                </ul>
+                
+                <div id="ad-sidebar" class="ad-unit">
+                    <!-- Ad placeholder -->
+                    <p>Advertisement Space</p>
+                </div>
+            </aside>
+
+            <section class="deals-container">
+                <div class="deals-grid" id="deals-grid">
+                    <!-- Sample Deal Card -->
+                    <article class="deal-card" data-id="1">
+                        <img src="/api/placeholder/280/200" alt="Samsung 65&quot; 4K UHD TV" class="deal-image">
+                        <div class="deal-content">
+                            <h3 class="deal-title">Samsung 65" 4K UHD TV</h3>
+                            <div class="savings-badge">Save $200</div>
+                            <p class="expiry-date">Expires: March 15, 2024</p>
+                            <button class="view-deal-btn">View Deal</button>
+                        </div>
+                    </article>
+                    <!-- More deal cards will be dynamically added here -->
+                </div>
+                
+                <div id="ad-grid" class="ad-unit">
+                    <!-- Ad placeholder -->
+                    <p>Advertisement Space</p>
+                </div>
+
+                <nav class="pagination" aria-label="Deals navigation">
+                    <button id="prev-page" class="page-btn">Previous</button>
+                    <div id="page-numbers" class="page-numbers">
+                        <button class="page-btn active">1</button>
+                        <button class="page-btn">2</button>
+                        <button class="page-btn">3</button>
+                    </div>
+                    <button id="next-page" class="page-btn">Next</button>
+                </nav>
+            </section>
+        </main>
+    </div>
+
+    <!-- Deal Detail View -->
+    <div class="detail-view" id="detail-view">
+        <main class="container">
+            <button class="back-btn" id="back-to-deals">← Back to Deals</button>
+            
+            <article class="deal-detail">
+                <div class="detail-grid">
+                    <div class="product-image">
+                        <img src="/api/placeholder/600/400" alt="Samsung 65&quot; 4K UHD TV" class="detail-img">
+                    </div>
+                    
+                    <div class="product-info">
+                        <h2 class="product-title">Samsung 65" 4K UHD TV</h2>
+                        <div class="savings-badge">Save $200</div>
+                        <p class="expiry-date">Offer expires: March 15, 2024</p>
+                        
+                        <div class="product-features">
+                            <h3>Key Features:</h3>
+                            <ul>
+                                <li>4K Resolution</li>
+                                <li>Smart TV</li>
+                                <li>HDR</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="store-info">
+                            <h3>Store Location</h3>
+                            <p>Available at Costco stores in ZIP: 90210</p>
+                            <button class="cta-button">Check at your local Costco</button>
+                        </div>
+                        
+                        <div class="social-share">
+                            <button class="share-btn" data-platform="facebook">Share on Facebook</button>
+                            <button class="share-btn" data-platform="twitter">Share on Twitter</button>
+                        </div>
+                    </div>
+                </div>
+            </article>
+
+            <div id="ad-detail" class="ad-unit">
+                <!-- Ad placeholder -->
+                <p>Advertisement Space</p>
+            </div>
+        </main>
+    </div>
+
+    <footer class="main-footer">
+        <div class="footer-content">
+            <p>This website is not affiliated with or endorsed by Costco. All deals are subject to change and availability.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Basic view switching functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const dealsView = document.getElementById('deals-view');
+            const detailView = document.getElementById('detail-view');
+            const backButton = document.getElementById('back-to-deals');
+            const siteTitle = document.getElementById('site-title');
+            const viewDealButtons = document.querySelectorAll('.view-deal-btn');
+            
+            // Function to show deals list
+            function showDealsList() {
+                dealsView.classList.add('hidden');
+                detailView.classList.add('active');
+                window.scrollTo(0, 0);
+            }
+            
+            // Event listeners for view switching
+            backButton.addEventListener('click', showDealsList);
+            siteTitle.addEventListener('click', showDealsList);
+            
+            viewDealButtons.forEach(button => {
+                button.addEventListener('click', showDealDetail);
+            });
+
+            // Category filtering
+            const categoryButtons = document.querySelectorAll('.category-btn');
+            
+            categoryButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all buttons
+                    categoryButtons.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked button
+                    button.classList.add('active');
+                    
+                    // In a real application, this would filter the deals
+                    const category = button.dataset.category;
+                    console.log('Filtering by category:', category);
+                });
+            });
+
+            // Search functionality
+            const searchInput = document.getElementById('search-input');
+            const searchButton = document.getElementById('search-button');
+            
+            function performSearch() {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm) {
+                    // In a real application, this would filter the deals based on search
+                    console.log('Searching for:', searchTerm);
+                }
+            }
+            
+            searchButton.addEventListener('click', performSearch);
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    performSearch();
+                }
+            });
+
+            // Pagination
+            const prevButton = document.getElementById('prev-page');
+            const nextButton = document.getElementById('next-page');
+            const pageNumbers = document.querySelectorAll('.page-numbers .page-btn');
+            
+            pageNumbers.forEach(button => {
+                button.addEventListener('click', () => {
+                    // Remove active class from all page numbers
+                    pageNumbers.forEach(btn => btn.classList.remove('active'));
+                    // Add active class to clicked page number
+                    button.classList.add('active');
+                    
+                    // In a real application, this would load the corresponding page of deals
+                    console.log('Loading page:', button.textContent);
+                });
+            });
+
+            prevButton.addEventListener('click', () => {
+                // In a real application, this would load the previous page
+                console.log('Loading previous page');
+            });
+
+            nextButton.addEventListener('click', () => {
+                // In a real application, this would load the next page
+                console.log('Loading next page');
+            });
+
+            // Social sharing functionality
+            const shareButtons = document.querySelectorAll('.share-btn');
+            
+            shareButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    const platform = button.dataset.platform;
+                    const url = window.location.href;
+                    const title = document.title;
+                    
+                    // Basic share URLs (in a real application, you'd want to use the Web Share API where available)
+                    const shareUrls = {
+                        facebook: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`,
+                        twitter: `https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`
+                    };
+                    
+                    if (shareUrls[platform]) {
+                        window.open(shareUrls[platform], '_blank', 'width=600,height=400');
+                    }
+                });
+            });
+
+            // Sample data loading simulation
+            function loadDeals() {
+                const sampleDeals = [
+                    {
+                        id: 1,
+                        title: 'Samsung 65" 4K UHD TV',
+                        savings: '$200',
+                        expiryDate: 'March 15, 2024',
+                        image: '/api/placeholder/280/200'
+                    },
+                    {
+                        id: 2,
+                        title: 'KitchenAid Stand Mixer',
+                        savings: '$150',
+                        expiryDate: 'March 20, 2024',
+                        image: '/api/placeholder/280/200'
+                    }
+                    // Add more sample deals as needed
+                ];
+
+                const dealsGrid = document.getElementById('deals-grid');
+                dealsGrid.innerHTML = ''; // Clear existing deals
+
+                sampleDeals.forEach(deal => {
+                    const dealCard = document.createElement('article');
+                    dealCard.className = 'deal-card';
+                    dealCard.dataset.id = deal.id;
+                    
+                    dealCard.innerHTML = `
+                        <img src="${deal.image}" alt="${deal.title}" class="deal-image">
+                        <div class="deal-content">
+                            <h3 class="deal-title">${deal.title}</h3>
+                            <div class="savings-badge">Save ${deal.savings}</div>
+                            <p class="expiry-date">Expires: ${deal.expiryDate}</p>
+                            <button class="view-deal-btn">View Deal</button>
+                        </div>
+                    `;
+                    
+                    dealsGrid.appendChild(dealCard);
+                    
+                    // Add click event for the new deal card
+                    const viewButton = dealCard.querySelector('.view-deal-btn');
+                    viewButton.addEventListener('click', showDealDetail);
+                });
+            }
+
+            // Load initial deals
+            loadDeals();
+
+            // Handle browser back button
+            window.addEventListener('popstate', () => {
+                if (detailView.classList.contains('active')) {
+                    showDealsList();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
