@@ -1,0 +1,279 @@
+<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="apple-mobile-web-app-capable" content="yes"><style>[hidden]{display:none!important}body{margin:0}img{max-width:100%}</style></head><body><title>Grade 3 Reasoning Practice</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Lexend:wght@400;500;600&display=swap">
+<style>
+/* Layout: one calm column like a workbook page; one question at a time, big tappable answers. */
+:root{
+  --bg:#EEF2F5; --surface:#FFFFFF; --ink:#1D2833; --muted:#5B6976; --line:#D5DDE4;
+  --accent:#17796A; --accent-ink:#FFFFFF; --accent-soft:#DDF0EC; --sun:#E9A72E;
+  --good:#2C8A4B; --good-soft:#E1F3E6; --bad:#C0463B; --bad-soft:#F8E3E0;
+  --display:"Baloo 2", "Trebuchet MS", system-ui, sans-serif;
+  --body:"Lexend", system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#11181F; --surface:#1A232C; --ink:#E5ECF1; --muted:#9AA8B4; --line:#2C3843;
+  --accent:#4EC2A8; --accent-ink:#0D1A17; --accent-soft:#183A34; --sun:#F2BD55;
+  --good:#5CC57E; --good-soft:#173322; --bad:#EE7A6E; --bad-soft:#3A1E1B; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#11181F; --surface:#1A232C; --ink:#E5ECF1; --muted:#9AA8B4; --line:#2C3843;
+  --accent:#4EC2A8; --accent-ink:#0D1A17; --accent-soft:#183A34; --sun:#F2BD55;
+  --good:#5CC57E; --good-soft:#173322; --bad:#EE7A6E; --bad-soft:#3A1E1B; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.5}
+.wrap{max-width:720px;margin:0 auto;padding-block:24px 48px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;flex-direction:column;gap:20px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;margin:0;text-wrap:balance}
+h1{font-size:2.2rem;font-weight:800}
+h2{font-size:1.5rem;font-weight:800}
+.eyebrow{font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:600}
+.muted{color:var(--muted)}
+p{margin:0}
+button{font:inherit;color:inherit;cursor:pointer}
+button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
+.btn{border:0;border-radius:12px;padding:12px 20px;font-weight:600;background:var(--accent);color:var(--accent-ink);font-size:1rem}
+.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--line)}
+.btn:disabled{opacity:.45;cursor:default}
+
+/* home */
+.hero{display:flex;flex-direction:column;gap:8px}
+.daily{background:var(--accent);color:var(--accent-ink);border:0;border-radius:18px;padding:20px 22px;text-align:left;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.daily h2{font-size:1.6rem}
+.daily .go{font-family:var(--display);font-size:2rem;font-weight:800}
+.sections{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+@media (max-width:620px){.sections{grid-template-columns:1fr}}
+.sec{background:var(--surface);border:1.5px solid var(--line);border-radius:14px;padding:16px;text-align:left;display:flex;flex-direction:column;gap:6px;min-width:0}
+.sec:hover{border-color:var(--accent)}
+.sec h3{font-size:1.25rem}
+.sec .count{font-size:.85rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.history{display:flex;flex-direction:column;gap:0;background:var(--surface);border-radius:14px;border:1.5px solid var(--line)}
+.hrow{display:flex;justify-content:space-between;gap:12px;padding:10px 16px;border-top:1px solid var(--line);font-variant-numeric:tabular-nums}
+.hrow:first-child{border-top:0}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font-size:.8rem;font-weight:600;background:var(--accent-soft);color:var(--ink)}
+.notice{background:var(--surface);border:1.5px dashed var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:6px}
+
+/* quiz */
+.qtop{display:flex;align-items:center;gap:12px}
+.bar{flex:1;height:10px;border-radius:99px;background:var(--line);overflow:hidden}
+.bar>i{display:block;height:100%;background:var(--accent);transition:width .3s}
+.num{font-variant-numeric:tabular-nums;color:var(--muted);font-size:.9rem;white-space:nowrap}
+.card{background:var(--surface);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:16px;border:1.5px solid var(--line)}
+.prompt{font-size:1.3rem;font-weight:500;line-height:1.4;white-space:pre-wrap}
+.figure{display:flex;justify-content:center;color:var(--ink)}
+.figure svg{max-width:100%;height:auto;max-height:200px;width:auto}
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.opts.pics{grid-template-columns:repeat(4,1fr)}
+@media (max-width:520px){.opts{grid-template-columns:1fr}.opts.pics{grid-template-columns:repeat(2,1fr)}}
+.opt{display:flex;align-items:center;gap:12px;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:1.1rem;text-align:left;min-width:0}
+.opt .k{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1.5px solid var(--line);font-weight:600;font-size:.9rem}
+.opts.pics .opt{flex-direction:column;justify-content:center;padding:10px}
+.opt svg{width:64px;height:64px}
+.opt:not(:disabled):hover{border-color:var(--accent)}
+.opt.right{border-color:var(--good);background:var(--good-soft)}
+.opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.opt:disabled{cursor:default}
+.feedback{border-radius:14px;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.feedback.good{background:var(--good-soft)}
+.feedback.bad{background:var(--bad-soft)}
+.feedback b{font-family:var(--display);font-size:1.25rem}
+.row{display:flex;gap:10px;justify-content:space-between;align-items:center;flex-wrap:wrap}
+
+/* results */
+.score{font-family:var(--display);font-size:3.4rem;font-weight:800;line-height:1;font-variant-numeric:tabular-nums}
+.stars{color:var(--sun);font-size:1.8rem;letter-spacing:4px}
+.review{display:flex;flex-direction:column;gap:10px}
+.rv{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.rv svg{max-height:110px;width:auto;max-width:100%}
+footer{font-size:.8rem;color:var(--muted)}
+@media (prefers-reduced-motion:reduce){.bar>i{transition:none}}
+</style>
+
+<div class="wrap" id="app">
+  <div class="hero">
+    <span class="eyebrow">CCAT-style practice</span>
+    <h1>Thinking Practice</h1>
+    <p class="muted">Loading questions…</p>
+  </div>
+</div>
+
+<script type="application/json" id="bank">[{"section": "verbal", "type": "Analogy", "prompt": "Bird is to nest as bee is to ___.", "options": ["hive", "honey", "flower", "wing"], "answer": 0, "explain": "A bird lives in a nest. A bee lives in a hive.", "order": 1, "_id": "v01"}, {"section": "verbal", "type": "Analogy", "prompt": "Puppy is to dog as kitten is to ___.", "options": ["mouse", "cat", "milk", "cub"], "answer": 1, "explain": "A puppy grows up into a dog. A kitten grows up into a cat.", "order": 2, "_id": "v02"}, {"section": "verbal", "type": "Analogy", "prompt": "Hot is to cold as up is to ___.", "options": ["high", "top", "down", "sky"], "answer": 2, "explain": "Hot and cold are opposites. The opposite of up is down.", "order": 3, "_id": "v03"}, {"section": "verbal", "type": "Analogy", "prompt": "Pen is to write as scissors is to ___.", "options": ["paper", "sharp", "draw", "cut"], "answer": 3, "explain": "You use a pen to write. You use scissors to cut.", "order": 4, "_id": "v04"}, {"section": "verbal", "type": "Analogy", "prompt": "Glove is to hand as sock is to ___.", "options": ["foot", "shoe", "leg", "warm"], "answer": 0, "explain": "A glove goes on a hand. A sock goes on a foot.", "order": 5, "_id": "v05"}, {"section": "verbal", "type": "Analogy", "prompt": "Author is to book as painter is to ___.", "options": ["brush", "picture", "colour", "museum"], "answer": 1, "explain": "An author makes a book. A painter makes a picture. A brush is a tool, not what the painter makes.", "order": 6, "_id": "v06"}, {"section": "verbal", "type": "Analogy", "prompt": "Few is to many as small is to ___.", "options": ["tiny", "little", "large", "some"], "answer": 2, "explain": "Few and many are opposites. The opposite of small is large.", "order": 7, "_id": "v07"}, {"section": "verbal", "type": "Analogy", "prompt": "Page is to book as leaf is to ___.", "options": ["green", "tree", "branch", "fall"], "answer": 1, "explain": "A page is part of a book. A leaf is part of a tree. A branch is also part of a tree, but the whole thing is the tree.", "order": 8, "_id": "v08"}, {"section": "verbal", "type": "Word groups", "prompt": "Which word goes with these? rose, tulip, daisy", "options": ["oak", "grass", "lily", "seed"], "answer": 2, "explain": "Rose, tulip and daisy are all flowers. A lily is a flower too.", "order": 9, "_id": "v09"}, {"section": "verbal", "type": "Word groups", "prompt": "Which word goes with these? Monday, Friday, Sunday", "options": ["June", "Tuesday", "morning", "week"], "answer": 1, "explain": "They are all days of the week. Tuesday is a day of the week.", "order": 10, "_id": "v10"}, {"section": "verbal", "type": "Word groups", "prompt": "Which word goes with these? violin, guitar, harp", "options": ["drum", "flute", "trumpet", "cello"], "answer": 3, "explain": "Violin, guitar and harp all have strings. A cello has strings too.", "order": 11, "_id": "v11"}, {"section": "verbal", "type": "Odd one out", "prompt": "Which word does NOT belong? whisper, shout, mumble, listen", "options": ["whisper", "shout", "mumble", "listen"], "answer": 3, "explain": "Whisper, shout and mumble are ways of speaking. Listen is not a way of speaking.", "order": 12, "_id": "v12"}, {"section": "verbal", "type": "Sentence completion", "prompt": "The ice cream ___ quickly in the hot sun.", "options": ["froze", "melted", "grew", "sang"], "answer": 1, "explain": "Heat makes ice cream melt.", "order": 13, "_id": "v13"}, {"section": "verbal", "type": "Sentence completion", "prompt": "Maya was so ___ after running the race that she drank three glasses of water.", "options": ["hungry", "sleepy", "thirsty", "happy"], "answer": 2, "explain": "Drinking lots of water is a clue that she was thirsty.", "order": 14, "_id": "v14"}, {"section": "verbal", "type": "Sentence completion", "prompt": "A baby frog is called a ___.", "options": ["cub", "tadpole", "calf", "chick"], "answer": 1, "explain": "Frogs start life as tadpoles.", "order": 15, "_id": "v15"}, {"section": "verbal", "type": "Sentence completion", "prompt": "We were in the library, so we had to ___.", "options": ["shout", "run", "whisper", "sing"], "answer": 2, "explain": "Libraries are quiet places, so you whisper.", "order": 16, "_id": "v16"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 2, 4, 6, 8, ?", "options": ["9", "10", "12", "16"], "answer": 1, "explain": "Each number goes up by 2. 8 + 2 = 10.", "order": 17, "_id": "q01"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 3, 6, 12, 24, ?", "options": ["27", "30", "36", "48"], "answer": 3, "explain": "Each number doubles. 24 × 2 = 48.", "order": 18, "_id": "q02"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 20, 17, 14, 11, ?", "options": ["8", "9", "10", "7"], "answer": 0, "explain": "Each number goes down by 3. 11 − 3 = 8.", "order": 19, "_id": "q03"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 1, 4, 9, 16, ?", "options": ["20", "23", "25", "32"], "answer": 2, "explain": "These are 1×1, 2×2, 3×3, 4×4. Next is 5×5 = 25.", "order": 20, "_id": "q04"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 5, 7, 10, 14, ?", "options": ["18", "19", "20", "21"], "answer": 1, "explain": "The jumps grow: +2, +3, +4, then +5. 14 + 5 = 19.", "order": 21, "_id": "q05"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 1, 2, 4, 5, 7, 8, ?", "options": ["9", "10", "11", "12"], "answer": 1, "explain": "The pattern is +1, +2, +1, +2. 8 + 2 = 10.", "order": 22, "_id": "q06"}, {"section": "quantitative", "type": "Number series", "prompt": "What comes next? 2, 3, 5, 8, 12, ?", "options": ["15", "16", "17", "18"], "answer": 2, "explain": "The jumps are +1, +2, +3, +4, then +5. 12 + 5 = 17.", "order": 23, "_id": "q07"}, {"section": "quantitative", "type": "Number analogy", "prompt": "3 → 6   5 → 10   7 → ?", "options": ["9", "12", "14", "17"], "answer": 2, "explain": "Each number is doubled. 7 × 2 = 14.", "order": 24, "_id": "q08"}, {"section": "quantitative", "type": "Number analogy", "prompt": "10 → 7   8 → 5   15 → ?", "options": ["12", "13", "18", "10"], "answer": 0, "explain": "Each time you take away 3. 15 − 3 = 12.", "order": 25, "_id": "q09"}, {"section": "quantitative", "type": "Number analogy", "prompt": "2 → 4   3 → 9   5 → ?", "options": ["10", "15", "20", "25"], "answer": 3, "explain": "Each number is multiplied by itself. 5 × 5 = 25.", "order": 26, "_id": "q10"}, {"section": "quantitative", "type": "Number analogy", "prompt": "12 → 6   20 → 10   16 → ?", "options": ["8", "4", "12", "32"], "answer": 0, "explain": "Each number is cut in half. Half of 16 is 8.", "order": 27, "_id": "q11"}, {"section": "quantitative", "type": "Number puzzle", "prompt": "What number goes in the box?  ☐ + 4 = 11", "options": ["5", "6", "7", "15"], "answer": 2, "explain": "7 + 4 = 11.", "order": 28, "_id": "q12"}, {"section": "quantitative", "type": "Number puzzle", "prompt": "What number goes in the box?  15 − ☐ = 9", "options": ["4", "6", "7", "24"], "answer": 1, "explain": "15 − 6 = 9.", "order": 29, "_id": "q13"}, {"section": "quantitative", "type": "Number puzzle", "prompt": "What number goes in the box?  ☐ − 5 = 2 + 6", "options": ["3", "8", "11", "13"], "answer": 3, "explain": "2 + 6 = 8. Then ☐ − 5 = 8, so ☐ = 13.", "order": 30, "_id": "q14"}, {"section": "quantitative", "type": "Word problem", "prompt": "Sam has 3 bags with 4 apples in each bag. He gives away 5 apples. How many apples does he have left?", "options": ["7", "12", "2", "17"], "answer": 0, "explain": "3 bags × 4 apples = 12 apples. 12 − 5 = 7.", "order": 31, "_id": "q15"}, {"section": "nonverbal", "type": "Figure matrix", "prompt": "The top pair shows a change. Which picture makes the bottom pair change the same way?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"22.4,22.4 37.6,22.4 37.6,37.6 22.4,37.6\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"9\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,21.9 38.2,36.1 21.8,36.1\"/><\/svg>"], "answer": 0, "explain": "The big shape becomes a small copy of itself. So the big square becomes a small square.", "order": 32, "figure": "<svg viewBox=\"0 0 150 150\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><rect x=\"1\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 6)\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><\/g><rect x=\"79\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 6)\"><circle cx=\"30\" cy=\"30\" r=\"9\"/><\/g><rect x=\"1\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 84)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/g><rect x=\"79\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 84)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n01"}, {"section": "nonverbal", "type": "Figure matrix", "prompt": "The top pair shows a change. Which picture makes the bottom pair change the same way?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,13.8 46.4,42.2 13.6,42.2\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"18\" fill=\"currentColor\"/><\/svg>"], "answer": 2, "explain": "The white shape is coloured in. So the white square becomes a black square.", "order": 33, "figure": "<svg viewBox=\"0 0 150 150\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><rect x=\"1\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 6)\"><polygon points=\"30.0,13.8 46.4,42.2 13.6,42.2\"/><\/g><rect x=\"79\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 6)\"><polygon points=\"30.0,13.8 46.4,42.2 13.6,42.2\" fill=\"currentColor\"/><\/g><rect x=\"1\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 84)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/g><rect x=\"79\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 84)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n02"}, {"section": "nonverbal", "type": "Figure matrix", "prompt": "The top pair shows a change. Which picture makes the bottom pair change the same way?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(0 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(90 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(180 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(270 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>"], "answer": 1, "explain": "The arrow turns to point the opposite way. Left turns into right.", "order": 34, "figure": "<svg viewBox=\"0 0 150 150\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><rect x=\"1\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 6)\"><g transform=\"rotate(0 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/g><rect x=\"79\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 6)\"><g transform=\"rotate(180 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/g><rect x=\"1\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 84)\"><g transform=\"rotate(270 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/g><rect x=\"79\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 84)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n03"}, {"section": "nonverbal", "type": "Figure matrix", "prompt": "The top pair shows a change. Which picture makes the bottom pair change the same way?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"12.9,24.9 23.1,24.9 23.1,35.1 12.9,35.1\" fill=\"currentColor\"/><polygon points=\"36.9,24.9 47.1,24.9 47.1,35.1 36.9,35.1\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"24.9,11.9 35.1,11.9 35.1,22.1 24.9,22.1\" fill=\"currentColor\"/><polygon points=\"12.9,35.9 23.1,35.9 23.1,46.1 12.9,46.1\" fill=\"currentColor\"/><polygon points=\"36.9,35.9 47.1,35.9 47.1,46.1 36.9,46.1\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"18\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"18\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"12.9,12.9 23.1,12.9 23.1,23.1 12.9,23.1\" fill=\"currentColor\"/><polygon points=\"36.9,12.9 47.1,12.9 47.1,23.1 36.9,23.1\" fill=\"currentColor\"/><polygon points=\"12.9,36.9 23.1,36.9 23.1,47.1 12.9,47.1\" fill=\"currentColor\"/><polygon points=\"36.9,36.9 47.1,36.9 47.1,47.1 36.9,47.1\" fill=\"currentColor\"/><\/svg>"], "answer": 3, "explain": "The number of shapes doubles: 1 becomes 2. So 2 squares become 4 squares.", "order": 35, "figure": "<svg viewBox=\"0 0 150 150\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><rect x=\"1\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 6)\"><circle cx=\"30\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><\/g><rect x=\"79\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 6)\"><circle cx=\"18\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><\/g><rect x=\"1\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 84)\"><polygon points=\"12.9,24.9 23.1,24.9 23.1,35.1 12.9,35.1\" fill=\"currentColor\"/><polygon points=\"36.9,24.9 47.1,24.9 47.1,35.1 36.9,35.1\" fill=\"currentColor\"/><\/g><rect x=\"79\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 84)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n04"}, {"section": "nonverbal", "type": "Figure matrix", "prompt": "The top pair shows a change. Which picture makes the bottom pair change the same way?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><line x1=\"30\" y1=\"15\" x2=\"30\" y2=\"45\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><line x1=\"15\" y1=\"30\" x2=\"45\" y2=\"30\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><line x1=\"30\" y1=\"12\" x2=\"30\" y2=\"48\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/svg>"], "answer": 0, "explain": "The line inside turns from lying down to standing up. The shape stays the same.", "order": 36, "figure": "<svg viewBox=\"0 0 150 150\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><rect x=\"1\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 6)\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><line x1=\"12\" y1=\"30\" x2=\"48\" y2=\"30\"/><\/g><rect x=\"79\" y=\"1\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 6)\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><line x1=\"30\" y1=\"12\" x2=\"30\" y2=\"48\"/><\/g><rect x=\"1\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(6 84)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><line x1=\"15\" y1=\"30\" x2=\"45\" y2=\"30\"/><\/g><rect x=\"79\" y=\"79\" width=\"70\" height=\"70\" rx=\"8\" stroke-width=\"1.5\" opacity=\".35\"/><g transform=\"translate(84 84)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n05"}, {"section": "nonverbal", "type": "Figure series", "prompt": "Which picture comes next in the row?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(0 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(90 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(180 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"rotate(270 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/svg>"], "answer": 3, "explain": "The arrow turns a quarter turn clockwise each time: up, right, down, then left.", "order": 37, "figure": "<svg viewBox=\"0 0 264 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><g transform=\"rotate(0 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/g><g transform=\"translate(68 0)\"><g transform=\"rotate(90 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/g><g transform=\"translate(136 0)\"><g transform=\"rotate(180 30 30)\"><line x1=\"30\" y1=\"46\" x2=\"30\" y2=\"16\"/><polyline points=\"21,25 30,15 39,25\"/><\/g><\/g><g transform=\"translate(204 0)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n06"}, {"section": "nonverbal", "type": "Figure series", "prompt": "Which picture comes next in the row?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"17\" r=\"6\" fill=\"currentColor\"/><circle cx=\"18\" cy=\"41\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"41\" r=\"6\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"18\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"18\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"16\" cy=\"16\" r=\"6\" fill=\"currentColor\"/><circle cx=\"44\" cy=\"16\" r=\"6\" fill=\"currentColor\"/><circle cx=\"30\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><circle cx=\"16\" cy=\"44\" r=\"6\" fill=\"currentColor\"/><circle cx=\"44\" cy=\"44\" r=\"6\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"16\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"30\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"44\" cy=\"18\" r=\"6\" fill=\"currentColor\"/><circle cx=\"16\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><circle cx=\"30\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><circle cx=\"44\" cy=\"42\" r=\"6\" fill=\"currentColor\"/><\/svg>"], "answer": 1, "explain": "One more dot is added each time: 1, 2, 3, then 4.", "order": 38, "figure": "<svg viewBox=\"0 0 264 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><circle cx=\"30\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><\/g><g transform=\"translate(68 0)\"><circle cx=\"18\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"30\" r=\"6\" fill=\"currentColor\"/><\/g><g transform=\"translate(136 0)\"><circle cx=\"30\" cy=\"17\" r=\"6\" fill=\"currentColor\"/><circle cx=\"18\" cy=\"41\" r=\"6\" fill=\"currentColor\"/><circle cx=\"42\" cy=\"41\" r=\"6\" fill=\"currentColor\"/><\/g><g transform=\"translate(204 0)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n07"}, {"section": "nonverbal", "type": "Figure series", "prompt": "Which picture comes next in the row?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"18\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/svg>"], "answer": 2, "explain": "The pattern repeats: black circle, white square. After a white square comes a black circle.", "order": 39, "figure": "<svg viewBox=\"0 0 332 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><circle cx=\"30\" cy=\"30\" r=\"18\" fill=\"currentColor\"/><\/g><g transform=\"translate(68 0)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/g><g transform=\"translate(136 0)\"><circle cx=\"30\" cy=\"30\" r=\"18\" fill=\"currentColor\"/><\/g><g transform=\"translate(204 0)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/g><g transform=\"translate(272 0)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n08"}, {"section": "nonverbal", "type": "Figure series", "prompt": "Which picture comes next in the row?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,19.2 40.9,38.1 19.1,38.1\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,6.6 53.6,47.5 6.4,47.5\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,22.8 37.3,35.4 22.7,35.4\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"7.9,7.9 52.1,7.9 52.1,52.1 7.9,52.1\"/><\/svg>"], "answer": 1, "explain": "The triangle gets bigger each time, so the next one is the biggest triangle.", "order": 40, "figure": "<svg viewBox=\"0 0 264 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><polygon points=\"30.0,22.8 37.3,35.4 22.7,35.4\"/><\/g><g transform=\"translate(68 0)\"><polygon points=\"30.0,17.4 42.7,39.5 17.3,39.5\"/><\/g><g transform=\"translate(136 0)\"><polygon points=\"30.0,12.0 48.2,43.5 11.8,43.5\"/><\/g><g transform=\"translate(204 0)\"><text x=\"30\" y=\"40\" font-size=\"28\" font-weight=\"700\" fill=\"currentColor\" stroke=\"none\" text-anchor=\"middle\" font-family=\"sans-serif\">?<\/text><\/g><\/svg>", "_id": "n09"}, {"section": "nonverbal", "type": "Figure groups", "prompt": "These three shapes belong together. Which one also belongs?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,13.8 46.4,42.2 13.6,42.2\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"21.0,19.2 39.0,19.2 48.0,40.8 12.0,40.8\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,12.0 47.1,24.4 40.6,44.6 19.4,44.6 12.9,24.4\"/><\/svg>"], "answer": 2, "explain": "The square, rectangle and diamond all have 4 sides. The trapezoid has 4 sides too.", "order": 41, "figure": "<svg viewBox=\"0 0 196 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><\/g><g transform=\"translate(68 0)\"><polygon points=\"12.0,20.1 48.0,20.1 48.0,39.9 12.0,39.9\"/><\/g><g transform=\"translate(136 0)\"><polygon points=\"30.0,12.0 48.0,30.0 30.0,48.0 12.0,30.0\"/><\/g><\/svg>", "_id": "n10"}, {"section": "nonverbal", "type": "Figure groups", "prompt": "These three shapes belong together. Which one also belongs?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,12.0 34.8,23.4 47.1,24.4 37.7,32.5 40.6,44.6 30.0,38.1 19.4,44.6 22.3,32.5 12.9,24.4 25.2,23.4\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,12.0 47.1,24.4 40.6,44.6 19.4,44.6 12.9,24.4\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"48.0,30.0 39.0,45.6 21.0,45.6 12.0,30.0 21.0,14.4 39.0,14.4\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><\/svg>"], "answer": 1, "explain": "All three are coloured in black. The black pentagon is the only coloured-in choice.", "order": 42, "figure": "<svg viewBox=\"0 0 196 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><circle cx=\"30\" cy=\"30\" r=\"18\" fill=\"currentColor\"/><\/g><g transform=\"translate(68 0)\"><polygon points=\"30.0,13.8 46.4,42.2 13.6,42.2\" fill=\"currentColor\"/><\/g><g transform=\"translate(136 0)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\" fill=\"currentColor\"/><\/g><\/svg>", "_id": "n11"}, {"section": "nonverbal", "type": "Figure groups", "prompt": "These three shapes belong together. Which one also belongs?", "options": ["<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"48.0,30.0 39.0,45.6 21.0,45.6 12.0,30.0 21.0,14.4 39.0,14.4\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,13.8 46.4,42.2 13.6,42.2\"/><circle cx=\"30\" cy=\"48\" r=\"3\" fill=\"currentColor\"/><\/svg>", "<svg viewBox=\"0 0 60 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><polygon points=\"30.0,12.0 34.8,23.4 47.1,24.4 37.7,32.5 40.6,44.6 30.0,38.1 19.4,44.6 22.3,32.5 12.9,24.4 25.2,23.4\"/><circle cx=\"30\" cy=\"31\" r=\"3\" fill=\"currentColor\"/><\/svg>"], "answer": 3, "explain": "Each shape has a dot right in the middle of it. Only the star has a dot inside it in the middle.", "order": 43, "figure": "<svg viewBox=\"0 0 196 60\" xmlns=\"http://www.w3.org/2000/svg\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"2.5\" stroke-linejoin=\"round\" stroke-linecap=\"round\"><g transform=\"translate(0 0)\"><circle cx=\"30\" cy=\"30\" r=\"18\"/><circle cx=\"30\" cy=\"30\" r=\"3\" fill=\"currentColor\"/><\/g><g transform=\"translate(68 0)\"><polygon points=\"14.7,14.7 45.3,14.7 45.3,45.3 14.7,45.3\"/><circle cx=\"30\" cy=\"30\" r=\"3\" fill=\"currentColor\"/><\/g><g transform=\"translate(136 0)\"><polygon points=\"30.0,12.0 47.1,24.4 40.6,44.6 19.4,44.6 12.9,24.4\"/><circle cx=\"30\" cy=\"31\" r=\"3\" fill=\"currentColor\"/><\/g><\/svg>", "_id": "n12"}]</script>
+<script>
+const SECTIONS = {
+  verbal:{name:"Words", blurb:"Analogies, word groups and finishing sentences"},
+  quantitative:{name:"Numbers", blurb:"Number patterns, number pairs and puzzles"},
+  nonverbal:{name:"Shapes", blurb:"Picture patterns, shape groups and changes"}
+};
+const DAILY_SIZE = 10;
+const S = {questions:[], attempts:[], loaded:false, view:"home", quiz:null};
+const KEY = "reasoning-practice-rounds";
+function loadRounds(){ try{ const v = JSON.parse(localStorage.getItem(KEY)||"[]"); return Array.isArray(v)?v:[]; }catch(e){ return []; } }
+const app = document.getElementById("app");
+
+function h(tag, attrs, ...kids){
+  const el = document.createElement(tag);
+  for (const [k,v] of Object.entries(attrs||{})){
+    if (v==null || v===false) continue;
+    if (k==="class") el.className=v;
+    else if (k.startsWith("on")) el.addEventListener(k.slice(2), v);
+    else el.setAttribute(k, v===true?"":v);
+  }
+  for (const c of kids.flat()){ if (c==null||c===false) continue; el.append(c.nodeType?c:document.createTextNode(String(c))); }
+  return el;
+}
+function safeSvg(str){
+  if (typeof str!=="string" || !str.trim().startsWith("<svg")) return null;
+  try{
+    const doc = new DOMParser().parseFromString(str, "image/svg+xml");
+    const root = doc.documentElement;
+    if (root.nodeName!=="svg" || doc.querySelector("parsererror")) return null;
+    root.querySelectorAll("script,foreignObject,iframe,a,image,use").forEach(n=>n.remove());
+    for (const n of [root, ...root.querySelectorAll("*")])
+      for (const a of [...n.attributes]) if (/^on/i.test(a.name) || /href/i.test(a.name)) n.removeAttribute(a.name);
+    return document.importNode(root, true);
+  }catch(e){ return null; }
+}
+function content(str){ return safeSvg(str) || document.createTextNode(String(str??"")); }
+function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
+function valid(q){ return q && Array.isArray(q.options) && q.options.length>=2 && Number.isInteger(q.answer) && q.answer>=0 && q.answer<q.options.length && q.prompt; }
+function fmtDate(iso){ try{ return new Date(iso).toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"}); }catch(e){ return ""; } }
+function sameDay(a,b){ return a.toDateString()===b.toDateString(); }
+
+function streak(){
+  const days = new Set(S.attempts.map(a=>{ try{return new Date(a.at).toDateString();}catch(e){return "";} }));
+  let n=0; const d=new Date();
+  if (!days.has(d.toDateString())) d.setDate(d.getDate()-1);
+  while (days.has(d.toDateString())){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+
+function render(){
+  app.replaceChildren(...(S.view==="quiz" ? quizView() : S.view==="results" ? resultsView() : homeView()));
+  window.scrollTo({top:0});
+}
+
+function homeView(){
+  const out = [];
+  const st = streak();
+  const today = S.attempts.filter(a=>sameDay(new Date(a.at), new Date())).length;
+  out.push(h("div",{class:"hero"},
+    h("span",{class:"eyebrow"},"CCAT-style practice · Grade 3"),
+    h("h1",{},"Thinking Practice"),
+    h("p",{class:"muted"}, st>1 ? `${st} days in a row. Keep it going!` : today ? "Nice work today. Want another round?" : "A little practice every day. Pick a round to start.")
+  ));
+  if (!S.loaded){ out.push(h("p",{class:"muted"},"Loading questions…")); return out; }
+  const qs = S.questions;
+  if (!qs.length){
+    out.push(h("div",{class:"notice"},h("h3",{},"No questions yet"),h("p",{class:"muted"},"Questions are added from the Claude chat for this project.")));
+    return out;
+  }
+  out.push(h("button",{class:"daily",onclick:()=>start("daily")},
+    h("div",{},h("span",{class:"eyebrow",style:"color:inherit;opacity:.8"},"Today's round"),h("h2",{},`${Math.min(DAILY_SIZE,qs.length)} mixed questions`),h("p",{style:"opacity:.85"},"Words, numbers and shapes")),
+    h("span",{class:"go","aria-hidden":"true"},"→")));
+  out.push(h("div",{class:"sections"}, Object.entries(SECTIONS).map(([k,s])=>{
+    const n = qs.filter(q=>q.section===k).length;
+    return h("button",{class:"sec",onclick:()=>start(k),disabled:!n},
+      h("h3",{},s.name), h("p",{class:"muted",style:"font-size:.9rem"},s.blurb), h("span",{class:"count"},`${n} question${n===1?"":"s"}`));
+  })));
+  if (S.attempts.length){
+    out.push(h("h2",{style:"font-size:1.2rem;margin-top:8px"},"Recent rounds"));
+    out.push(h("div",{class:"history"}, S.attempts.slice(0,7).map(a=>
+      h("div",{class:"hrow"}, h("span",{},fmtDate(a.at)," ",h("span",{class:"pill"},a.mode==="daily"?"Mixed":(SECTIONS[a.mode]?.name||a.mode))),
+        h("b",{},`${a.correct} / ${a.total}`)))));
+  }
+  out.push(h("footer",{},`${qs.length} questions in the bank. Scores are saved on this device.`));
+  return out;
+}
+
+function start(mode){
+  let pool = S.questions.filter(valid);
+  if (mode!=="daily") pool = pool.filter(q=>q.section===mode);
+  else {
+    // balance the mix across sections
+    const by = Object.keys(SECTIONS).map(k=>shuffle(pool.filter(q=>q.section===k)));
+    const mix=[]; let i=0;
+    while (mix.length<DAILY_SIZE && by.some(b=>b.length)){ const b=by[i%by.length]; if (b.length) mix.push(b.shift()); i++; }
+    pool = mix;
+  }
+  pool = shuffle(pool);
+  if (!pool.length) return;
+  S.quiz = {mode, items: pool.map(q=>({q, order: shuffle(q.options.map((_,i)=>i)), chosen:null})), i:0};
+  S.view="quiz"; render();
+}
+
+function quizView(){
+  const z = S.quiz, it = z.items[z.i], q = it.q, done = it.chosen!=null;
+  const pics = q.options.every(o=>typeof o==="string" && o.trim().startsWith("<svg"));
+  const letters = "ABCDEF";
+  const opts = h("div",{class:"opts"+(pics?" pics":"")}, it.order.map((oi,pos)=>{
+    let cls="opt";
+    if (done && oi===q.answer) cls+=" right";
+    else if (done && oi===it.chosen) cls+=" wrong";
+    return h("button",{class:cls,disabled:done,"aria-label":pics?`Choice ${letters[pos]}`:null,onclick:()=>{ it.chosen=oi; render(); }},
+      h("span",{class:"k"},letters[pos]), content(q.options[oi]));
+  }));
+  const right = it.chosen===q.answer;
+  return [
+    h("div",{class:"qtop"},
+      h("button",{class:"btn ghost",style:"padding:8px 14px",onclick:()=>{S.view="home";S.quiz=null;render();}},"Exit"),
+      h("div",{class:"bar",role:"progressbar","aria-valuemin":"0","aria-valuemax":z.items.length,"aria-valuenow":z.i+(done?1:0)},h("i",{style:`width:${((z.i+(done?1:0))/z.items.length)*100}%`})),
+      h("span",{class:"num"},`${z.i+1} of ${z.items.length}`)),
+    h("div",{class:"card"},
+      h("span",{class:"eyebrow"},`${SECTIONS[q.section]?.name||""} · ${q.type||""}`),
+      h("p",{class:"prompt"},q.prompt),
+      q.figure ? h("div",{class:"figure"},content(q.figure)) : null,
+      opts,
+      done ? h("div",{class:"feedback "+(right?"good":"bad")},
+        h("b",{},right?"Correct!":"Not quite."), q.explain ? h("p",{},q.explain) : null) : null,
+      done ? h("div",{class:"row",style:"justify-content:flex-end"},
+        h("button",{class:"btn",onclick:next,id:"nextbtn"}, z.i+1<z.items.length?"Next question":"See my score")) : null)
+  ];
+}
+
+function next(){
+  const z=S.quiz;
+  if (z.i+1<z.items.length){ z.i++; render(); return; }
+  z.correct = z.items.filter(it=>it.chosen===it.q.answer).length;
+  S.view="results"; render(); save(z);
+}
+
+function save(z){
+  const rec = {at:new Date().toISOString(), mode:z.mode, total:z.items.length, correct:z.correct,
+    items:z.items.map(it=>({id:it.q._id, correct:it.chosen===it.q.answer}))};
+  S.attempts = [rec, ...S.attempts].slice(0,200);
+  try{ localStorage.setItem(KEY, JSON.stringify(S.attempts)); }catch(e){}
+}
+
+function resultsView(){
+  const z=S.quiz, pct=z.correct/z.items.length;
+  const stars = pct>=.9?3:pct>=.7?2:pct>=.4?1:0;
+  const missed = z.items.filter(it=>it.chosen!==it.q.answer);
+  const bySec = Object.keys(SECTIONS).map(k=>{ const xs=z.items.filter(it=>it.q.section===k); return [k,xs.filter(it=>it.chosen===it.q.answer).length,xs.length]; }).filter(x=>x[2]);
+  return [
+    h("div",{class:"card",style:"align-items:flex-start"},
+      h("span",{class:"eyebrow"},"Round finished"),
+      h("div",{class:"score"},`${z.correct} / ${z.items.length}`),
+      h("div",{class:"stars","aria-label":`${stars} of 3 stars`},"★".repeat(stars)+"☆".repeat(3-stars)),
+      h("p",{},pct===1?"Perfect round!":pct>=.7?"Great thinking!":"Good effort. Look over the ones you missed below."),
+      bySec.length>1 ? h("p",{class:"muted"},bySec.map(([k,c,t])=>`${SECTIONS[k].name} ${c}/${t}`).join(" · ")) : null,
+      h("div",{class:"row"},
+        h("button",{class:"btn",onclick:()=>start(z.mode)},"Try another round"),
+        h("button",{class:"btn ghost",onclick:()=>{S.view="home";S.quiz=null;render();}},"Home"))),
+    missed.length ? h("h2",{style:"font-size:1.2rem"},"Let's look at the tricky ones") : null,
+    h("div",{class:"review"}, missed.map(it=>h("div",{class:"rv"},
+      h("span",{class:"eyebrow"},it.q.type||""),
+      h("p",{style:"font-weight:500"},it.q.prompt),
+      it.q.figure ? h("div",{class:"figure",style:"justify-content:flex-start"},content(it.q.figure)) : null,
+      h("p",{},"Answer: ", content(it.q.options[it.q.answer])),
+      it.q.explain ? h("p",{class:"muted"},it.q.explain) : null)))
+  ];
+}
+
+function boot(){
+  let bank=[];
+  try{ bank = JSON.parse(document.getElementById("bank").textContent||"[]"); }catch(e){ bank=[]; }
+  S.questions = bank.filter(valid).sort((a,b)=>(a.order||0)-(b.order||0));
+  S.attempts = loadRounds();
+  S.loaded = true;
+  render();
+}
+boot();
+</script>
+</body></html>
