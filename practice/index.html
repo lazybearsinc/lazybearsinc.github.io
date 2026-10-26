@@ -58,7 +58,8 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .card{background:var(--surface);border-radius:18px;padding:22px;display:flex;flex-direction:column;gap:16px;border:1.5px solid var(--line)}
 .prompt{font-size:1.3rem;font-weight:500;line-height:1.4;white-space:pre-wrap}
 .figure{display:flex;justify-content:center;color:var(--ink)}
-.figure svg{max-width:100%;height:auto;max-height:200px;width:auto;min-height:110px}
+.pic{display:block;max-width:100%;height:auto}
+.figure{overflow:hidden}
 .opts{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 .opts.pics{grid-template-columns:repeat(4,1fr)}
 .opts.pics.five{grid-template-columns:repeat(5,1fr)}
@@ -66,8 +67,7 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .opt{display:flex;align-items:center;gap:12px;background:var(--bg);border:2px solid var(--line);border-radius:14px;padding:12px 14px;font-size:1.1rem;text-align:left;min-width:0}
 .opt .k{flex:none;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;background:var(--surface);border:1.5px solid var(--line);font-weight:600;font-size:.9rem}
 .opts.pics .opt{flex-direction:column;justify-content:center;padding:10px}
-.opt svg{width:64px;height:64px}
-.opts.pics .opt svg{width:100%;max-width:100px;height:auto}
+
 .opt:not(:disabled):hover{border-color:var(--accent)}
 .opt.right{border-color:var(--good);background:var(--good-soft)}
 .opt.wrong{border-color:var(--bad);background:var(--bad-soft)}
@@ -83,7 +83,7 @@ button:focus-visible{outline:3px solid var(--sun);outline-offset:2px}
 .stars{color:var(--sun);font-size:1.8rem;letter-spacing:4px}
 .review{display:flex;flex-direction:column;gap:10px}
 .rv{background:var(--surface);border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
-.rv svg{max-height:110px;width:auto;max-width:100%}
+.rv p .pic{display:inline-block;vertical-align:middle}
 footer{font-size:.8rem;color:var(--muted)}
 @media (prefers-reduced-motion:reduce){.bar>i{transition:none}}
 </style>
@@ -120,19 +120,31 @@ function h(tag, attrs, ...kids){
   for (const c of kids.flat()){ if (c==null||c===false) continue; el.append(c.nodeType?c:document.createTextNode(String(c))); }
   return el;
 }
-function safeSvg(str){
-  if (typeof str!=="string" || !str.trim().startsWith("<svg")) return null;
-  try{
-    const doc = new DOMParser().parseFromString(str, "image/svg+xml");
-    const root = doc.documentElement;
-    if (root.nodeName!=="svg" || doc.querySelector("parsererror")) return null;
-    root.querySelectorAll("script,foreignObject,iframe,a,image,use").forEach(n=>n.remove());
-    for (const n of [root, ...root.querySelectorAll("*")])
-      for (const a of [...n.attributes]) if (/^on/i.test(a.name) || /href/i.test(a.name)) n.removeAttribute(a.name);
-    return document.importNode(root, true);
-  }catch(e){ return null; }
+const SIZES = {figure:{h:150}, opt:{box:84}, review:{h:100}, small:{box:44}};
+function themeColors(){
+  const cs = getComputedStyle(document.documentElement);
+  return {ink: getComputedStyle(document.body).color || "#1D2833", surface: (cs.getPropertyValue("--surface")||"").trim() || "#FFFFFF"};
 }
-function content(str){ return safeSvg(str) || document.createTextNode(String(str??"")); }
+function svgImg(str, kind){
+  const m = /viewBox="\s*([\d.\-]+)[\s,]+([\d.\-]+)[\s,]+([\d.]+)[\s,]+([\d.]+)\s*"/.exec(str);
+  if (!m) return null;
+  const w = parseFloat(m[3]), h = parseFloat(m[4]);
+  if (!(w>0 && h>0)) return null;
+  const c = themeColors(), sz = SIZES[kind] || SIZES.opt;
+  const k = sz.h ? sz.h / h : sz.box / Math.max(w, h);
+  const s = str.replace(/var\(--surface\)/g, c.surface).replace(/currentColor/g, c.ink)
+               .replace("<svg", `<svg width="${w}" height="${h}"`);
+  const img = new Image();
+  img.alt = "";
+  img.className = "pic pic-" + kind;
+  img.width = Math.round(w * k); img.height = Math.round(h * k);
+  img.src = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(s);
+  return img;
+}
+function content(str, kind){
+  if (typeof str==="string" && str.trim().startsWith("<svg")) return svgImg(str, kind) || document.createTextNode("");
+  return document.createTextNode(String(str??""));
+}
 function shuffle(a){ a=[...a]; for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];} return a; }
 function valid(q){ return q && Array.isArray(q.options) && q.options.length>=2 && Number.isInteger(q.answer) && q.answer>=0 && q.answer<q.options.length && q.prompt; }
 function fmtDate(iso){ try{ return new Date(iso).toLocaleDateString(undefined,{weekday:"short",month:"short",day:"numeric"}); }catch(e){ return ""; } }
@@ -209,7 +221,7 @@ function quizView(){
     if (done && oi===q.answer) cls+=" right";
     else if (done && oi===it.chosen) cls+=" wrong";
     return h("button",{class:cls,disabled:done,"aria-label":pics?`Choice ${letters[pos]}`:null,onclick:()=>{ it.chosen=oi; render(); }},
-      h("span",{class:"k"},letters[pos]), content(q.options[oi]));
+      h("span",{class:"k"},letters[pos]), content(q.options[oi],"opt"));
   }));
   const right = it.chosen===q.answer;
   return [
@@ -220,7 +232,7 @@ function quizView(){
     h("div",{class:"card"},
       h("span",{class:"eyebrow"},`${SECTIONS[q.section]?.name||""} · ${q.type||""}`),
       h("p",{class:"prompt"},q.prompt),
-      q.figure ? h("div",{class:"figure"},content(q.figure)) : null,
+      q.figure ? h("div",{class:"figure"},content(q.figure,"figure")) : null,
       opts,
       done ? h("div",{class:"feedback "+(right?"good":"bad")},
         h("b",{},right?"Correct!":"Not quite."), q.explain ? h("p",{},q.explain) : null) : null,
@@ -262,8 +274,8 @@ function resultsView(){
     h("div",{class:"review"}, missed.map(it=>h("div",{class:"rv"},
       h("span",{class:"eyebrow"},it.q.type||""),
       h("p",{style:"font-weight:500"},it.q.prompt),
-      it.q.figure ? h("div",{class:"figure",style:"justify-content:flex-start"},content(it.q.figure)) : null,
-      h("p",{},"Answer: ", content(it.q.options[it.q.answer])),
+      it.q.figure ? h("div",{class:"figure",style:"justify-content:flex-start"},content(it.q.figure,"review")) : null,
+      h("p",{},"Answer: ", content(it.q.options[it.q.answer],"small")),
       it.q.explain ? h("p",{class:"muted"},it.q.explain) : null)))
   ];
 }
